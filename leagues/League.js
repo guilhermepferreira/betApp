@@ -10,7 +10,7 @@ const League = connection.define('leagues', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    leagueId: {
+    league_api_id: {
         type: Sequelize.INTEGER,
         allowNull:false
     },
@@ -53,7 +53,6 @@ const League = connection.define('leagues', {
 
 });
 
-Coverage.belongsTo(League);
 League.belongsTo(Coverage);
 League.sync({force:false});
 module.exports = League;

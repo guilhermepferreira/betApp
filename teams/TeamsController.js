@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const League = require('./League');
+const TeamLeague = require('./TeamLeague');
+const Team = require('./Team');
 
 router.get('/', (req, res) => {
 

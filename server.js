@@ -8,6 +8,7 @@ const adminController = require('./admin/AdminController');
 const authController = require('./authentication/AuthController');
 const dashboardController = require('./dashboard/DashboardController');
 const LeaguesController = require('./leagues/LeaguesController');
+const teamsController = require('./teams/TeamsController');
 
 //Utilitarios
 const bodyParser = require('body-parser');
@@ -54,7 +55,8 @@ app.use('/users', userController);
 app.use('/admin', adminController);
 app.use('/auth', authController);
 app.use('/dashboard', dashboardController);
-app.use('/leagues', dashboardController);
+app.use('/leagues', LeaguesController);
+app.use('/teams', teamsController);
 
 
 
