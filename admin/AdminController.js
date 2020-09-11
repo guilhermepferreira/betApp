@@ -14,13 +14,16 @@ router.get('/services/get-leagues/:country/:year?', (req, res) => {
     if (req.params.year === undefined) {
         year = 2020;
     }
+
     Service.getLeaguesByCountry(country, year).then(leagues => {
         leagueGestor(leagues);
     }).catch(err => {
         console.log(err);
+
     });
 
 });
+
 
 router.get('/services/get-teams/:league', (req, res) => {
     League.findOne({
@@ -39,6 +42,4 @@ router.get('/services/get-teams/:league', (req, res) => {
 
 
 });
-
-
 module.exports = router;
