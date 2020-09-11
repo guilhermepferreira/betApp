@@ -12,11 +12,10 @@ router.get('/services/get-leagues/:country/:year?', (req, res) => {
     } else {
         year = req.params.year;
     }
-    getLeagues(req.params.country)
+    Service(country, year).then(leagues => {
+
+    });
 
 });
 
-async function getLeagues(country, year){
-    Service(country, year)
-}
 module.exports = router;

@@ -2,9 +2,7 @@ const urlBase = "https://api-football-v1.p.rapidapi.com/v2";
 const axios = require("axios");
 
 function getLeaguesByCountry(country, year){
-    console.log("CACETE")
 return new Promise((resolve, reject) => {
-    console.log("AQUI")
     var service = '/leagues/country/';
     var url = urlBase+service+country+'/'+year;
     axios({
@@ -18,8 +16,8 @@ return new Promise((resolve, reject) => {
         }
     })
         .then((response)=>{
-            console.log(response.data.api.leagues)
-            resolve(response.data.api.leagues)
+            console.log(response)
+            resolve(response)
         })
         .catch((error)=>{
             reject(error)
