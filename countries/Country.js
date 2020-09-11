@@ -1,21 +1,20 @@
 const Sequelize = require('sequelize');
 const connection = require('../database/database');
-const User = require('./User');
 
-const UserType = connection.define('user_types', {
-    name: {
+const Country = connection.define('countries', {
+    country: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    description: {
+    code: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
-    slug: {
+    flag:{
         type: Sequelize.STRING,
         allowNull: true
     }
 });
 
-UserType.sync({force:false});
-module.exports = UserType;
+Country.sync({force:false});
+module.exports = Country;

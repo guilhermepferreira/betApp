@@ -1,0 +1,175 @@
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="card col-lg-2">
+            <div class="card-header">
+                API
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <span class="nav-tabs-title">Dados:</span>
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#countries" data-toggle="tab">
+                                            <i class="material-icons">blur_on</i> Países
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#leagues" data-toggle="tab">
+                                            <i class="material-icons">sports_soccer</i> Ligas
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#settings" data-toggle="tab">
+                                            <i class="material-icons">supervisor_account</i> Times
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="countries">
+                                <table class="table">
+                                    <tbody>
+                                    <% countries.forEach(country =>{ %>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <% if(country.flag === null || country.flag === undefined) { %>
+
+                                                        <% } else { %>
+                                                            <img src="<%= country.flag %>" class="country-img">
+                                                        <% } %>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td><%= country.country %></td>
+                                            <td><%= country.code %></td>
+                                            <td class="td-actions text-right">
+                                                <a href="/admin/services/get-leagues/<%= country.country%>" rel="tooltip" title="Baixar Ligas"
+                                                        class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">get_app</i>
+                                                </a>
+                                                <button type="button" rel="tooltip" title="Editar País"
+                                                        class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <form action="#" method="post" id="form">
+                                                    <input type="hidden" value="<%= country.id %>" name="country_id">
+                                                    <button type="submit" title="Apagar País"
+                                                            class="btn btn-danger btn-link btn-sm">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="leagues" disabled="disable">
+                                <table class="table">
+                                    <tbody>
+                                    <% leagues.forEach(league =>{ %>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <% if(league.logo === null || league.logo === undefined) { %>
+
+                                                        <% } else { %>
+                                                            <img src="<%= league.logo %>" class="country-img">
+                                                        <% } %>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td><%= league.name %></td>
+                                            <td><%= league.country %></td>
+                                            <td><%= league.season %></td>
+                                            <td>
+                                                <% if(league.is_current){ %>
+                                                Atual
+                                                <% } else { %>
+                                                    Anterior
+                                                <% } %>
+                                            </td>
+                                            <td class="td-actions text-right">
+                                                <a  title="Baixar Times" href="/admin/services/get-teams/<%=league.id%>"
+                                                        class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">get_app</i>
+                                                </a>
+                                                <button type="button" rel="tooltip" title="Editar País"
+                                                        class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <form action="/admin/league/remove" method="post" id="form">
+                                                    <input type="hidden" value="<%= league.id %>" name="country_id">
+                                                    <button type="submit" title="Apagar País"
+                                                            class="btn btn-danger btn-link btn-sm">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="settings">
+                                <table class="table">
+                                    <tbody>
+                                    <% teams.forEach(team =>{ %>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <% if(team.logo === null || team.logo === undefined) { %>
+
+                                                        <% } else { %>
+                                                            <img src="<%= team.logo %>" class="country-img">
+                                                        <% } %>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td><%= team.name %></td>
+                                            <td><%= team.country %></td>
+                                            <td class="td-actions text-right" disabled="">
+                                                <button type="button" rel="tooltip" title="Baixar dados"
+                                                        class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">get_app</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Editar País"
+                                                        class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <form action="/admin/league/remove" method="post" id="form">
+                                                    <input type="hidden" value="<%= team.id %>" name="country_id">
+                                                    <button type="submit" title="Apagar País"
+                                                            class="btn btn-danger btn-link btn-sm">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

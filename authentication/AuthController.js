@@ -6,15 +6,11 @@ router.post('/login', (req, res) => {
     var {email, password} = req.body;
 
     Auth(email, password, (response) =>{
-       if (!response.success) {
+        if (!response.success) {
             res.redirect("/")
        }
         //Autentica o usuario
-        req.session.user = {
-            id: response.user.id,
-            name: response.user.name,
-            nickname: response.user.nickname
-        }
+        req.session.user = response.user
 
        res.redirect('/dashboard/');
     })

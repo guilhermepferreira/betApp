@@ -1,5 +1,6 @@
 const User = require("./User");
 const bcrypt = require('bcryptjs');
+const FreeUser = 2;
 function createUser(form, callback) {
     var { name, email, nickname, password} = form;
     emailIsValid(email, (emailValidation) => {
@@ -13,7 +14,8 @@ function createUser(form, callback) {
             name: name,
             email: email,
             nickname: nickname,
-            password: hash
+            password: hash,
+            userTypeId: FreeUser
         }).then((user) =>{
            return  callback(user);
         }).catch((err) => {

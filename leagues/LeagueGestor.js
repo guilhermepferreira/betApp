@@ -3,7 +3,8 @@ const Coverage = require('../coverage/Coverage');
 
 function createLeagues(leagues) {
     return new Promise((resolve, reject) => {
-        leagues.forEach(league => {
+        console.log(leagues);
+        leagues.forEach((league, index) => {
             League.findOne({where: {league_api_id: league.league_id}}).then(exist => {
                 if (exist === undefined || exist === null) {
                     if (league.coverage.odds) {
@@ -35,14 +36,21 @@ function createLeagues(leagues) {
                                 coverageId: coverage.id
                             }).then(league => {
                                 console.log(league.id);
+                                if (index === leagues.length -1) resolve();
                             }).catch(err => {
                                 console.log(err);
+                                if (index === leagues.length -1) reject(err);
                             })
+                        }).catch(err =>{
+                            if (index === leagues.length -1) reject(err);
                         })
+                    } else {
+                        if (index === leagues.length -1) resolve();
                     }
                 }
             }).catch(err => {
                 console.log(err);
+                if (index === leagues.length -1) reject(err);
             });
         });
     });

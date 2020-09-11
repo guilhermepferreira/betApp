@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userGestor = require('./UserGestor');
+const UserType = require('./UserType');
 const User = require('./User');
 
 router.post('/save', (req, res) => {
