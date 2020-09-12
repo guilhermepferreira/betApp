@@ -109,12 +109,56 @@
                                                         class="btn btn-primary btn-link btn-sm">
                                                     <i class="material-icons">get_app</i>
                                                 </a>
+                                                <a  title="Baixar Partidas" href="/admin/services/get-matches/<%=league.id%>"
+                                                        class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">sports_soccer</i>
+                                                </a>
                                                 <button type="button" rel="tooltip" title="Editar País"
                                                         class="btn btn-primary btn-link btn-sm">
                                                     <i class="material-icons">edit</i>
                                                 </button>
                                                 <form action="/admin/league/remove" method="post" id="form">
                                                     <input type="hidden" value="<%= league.id %>" name="country_id">
+                                                    <button type="submit" title="Apagar País"
+                                                            class="btn btn-danger btn-link btn-sm">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="bookmarker">
+                                <table class="table">
+                                    <tbody>
+                                    <% teams.forEach(team =>{ %>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <% if(team.logo === null || team.logo === undefined) { %>
+
+                                                        <% } else { %>
+                                                            <img src="<%= team.logo %>" class="country-img">
+                                                        <% } %>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td><%= team.name %></td>
+                                            <td><%= team.country %></td>
+                                            <td class="td-actions text-right" disabled="">
+                                                <button type="button" rel="tooltip" title="Baixar dados"
+                                                        class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">get_app</i>
+                                                </button>
+                                                <button type="button" rel="tooltip" title="Editar País"
+                                                        class="btn btn-primary btn-link btn-sm">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                                <form action="/admin/league/remove" method="post" id="form">
+                                                    <input type="hidden" value="<%= team.id %>" name="country_id">
                                                     <button type="submit" title="Apagar País"
                                                             class="btn btn-danger btn-link btn-sm">
                                                         <i class="material-icons">close</i>

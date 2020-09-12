@@ -7,7 +7,13 @@ const League = require('../leagues/League');
 const Country = require('../countries/Country');
 const countryGestor = require('../countries/CountryGestor');
 const adminMiddlewre = require('../middlewares/Admin');
-const Team = require('../teams/Team')
+const Team = require('../teams/Team');
+const Match = require('../matches/Match');
+const MatchTeam = require('../matches/MatchTeam');
+const Scores = require('../matches/MatchTeam');
+const matchGestor = require('../matches/MatchGestor');
+const Bookmarker = require('../bookmakers/Bookmaker');
+const Odd = require('../odds/Odd');
 
 router.get('/', adminMiddlewre,(req, res) => {
     res.render('admin/index', {name: req.session.user.name});
@@ -63,11 +69,28 @@ router.get('/services/get-countries', adminMiddlewre,(req, res) => {
 });
 
 router.get('/services/get-players/:team_id', adminMiddlewre,(req, res) => {
-    Service.getCountries().then(result => {
-        countryGestor.createCountries(result).then(() => {
-            res.redirect('/admin/countries')
+
+});
+
+router.get('/services/get-matches/:league_id',adminMiddlewre, (req, res) => {
+        var {league_id} = req.params;
+        League.findOne({where:{
+            id:league_id
+            }}).then(league =>{
+                if (!(league instanceof League)) {
+                    res.redirect('/admin/api');
+                }
+            (async () => {
+                try {
+                    var matches = await Service.getMatchesByLeagueId(league);
+                    await matchGestor.createMatch(matches,league);
+                    res.redirect('/admin/api');
+                } catch (err){
+                    console.log(err);
+                    res.redirect('/admin/api');
+                }
+            })();
         })
-    });
 });
 
 
@@ -86,7 +109,6 @@ router.post('/country/remove', adminMiddlewre,(req, res) => {
 });
 
 router.get('/api/', adminMiddlewre, (req, res) => {
-
     (async () => {
         var countries = await Country.findAll();
         var leagues = await League.findAll();

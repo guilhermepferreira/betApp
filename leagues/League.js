@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const connection = require('../database/database');
 const Coverage = require('../coverage/Coverage');
+const Country = require('../countries/Country');
 const League = connection.define('leagues', {
     name:{
         type: Sequelize.STRING,
@@ -52,7 +53,6 @@ const League = connection.define('leagues', {
     }
 
 });
-
 League.belongsTo(Coverage);
 League.sync({force:false});
 module.exports = League;

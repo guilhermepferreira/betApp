@@ -62,4 +62,23 @@ function getCountries() {
     });
 }
 
-module.exports = {getLeaguesByCountry, getTeamsByLeague, getCountries};
+function getMatchesByLeagueId(league){
+    return new Promise((resolve, reject) => {
+
+        var service = '/fixtures/league/';
+        var url = urlBase + service+league.league_api_id;
+        axios({
+            "method": "GET",
+            "url": url,
+            "headers": header
+        })
+            .then((response) => {
+                resolve(response.data.api.fixtures)
+            })
+            .catch((error) => {
+                reject(error)
+            })
+    });
+}
+
+module.exports = {getLeaguesByCountry, getTeamsByLeague, getCountries,getMatchesByLeagueId};
